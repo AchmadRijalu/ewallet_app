@@ -1,3 +1,4 @@
+import 'package:ewallet_app/UI/pages/home_page.dart';
 import 'package:ewallet_app/UI/widgets/buttons.dart';
 import 'package:ewallet_app/shared/theme.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,10 @@ class SignUpSuccessPage extends StatelessWidget {
           CustomFilledButton(
             title: "Get Started",
             width: 183,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/home', (route) => false);
+            },
           )
         ],
       )),

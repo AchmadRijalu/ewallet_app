@@ -6,8 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../widgets/buttons.dart';
 import '../widgets/forms.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class SignUpSetKtpPage extends StatelessWidget {
+  const SignUpSetKtpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class SignUpPage extends StatelessWidget {
               margin: EdgeInsets.only(top: 100, bottom: 100),
             ),
             Text(
-              "Join us to Unlock\nYour Growth",
+              "Verify Your\nAccount",
               style:
                   blackTextStyle.copyWith(fontWeight: semiBold, fontSize: 20),
             ),
@@ -37,50 +37,58 @@ class SignUpPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: whiteColor, borderRadius: BorderRadius.circular(20)),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    //NOTE : FULL NAME INPUT
-                    const CustomFormField(title: "Full Name"),
-
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                          color: lightBackgroundColor, shape: BoxShape.circle),
+                      child: Center(
+                          child: Image.asset(
+                        "assets/icon_upload.png",
+                        width: 32,
+                        height: 32,
+                      )),
+                    ),
+                    // Container(
+                    //   width: 120,
+                    //   height: 120,
+                    //   decoration: BoxDecoration(
+                    //       shape: BoxShape.circle,
+                    //       image: DecorationImage(
+                    //           fit: BoxFit.cover,
+                    //           image: AssetImage("assets/img_profile.png"))),
+                    // ),
                     SizedBox(
                       height: 16,
                     ),
-                    //NOTE: EMAIL INPUT
-                    const CustomFormField(title: "Email Address"),
-
-                    SizedBox(
-                      height: 16,
-                    ),
-                    //NOTE: EMAIL INPUT
-                    CustomFormField(
-                      title: "Password",
-                      obscureText: true,
+                    Text(
+                      "Passport/ID Card",
+                      style: blackTextStyle.copyWith(
+                          fontSize: 18, fontWeight: medium),
                     ),
 
                     SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
-
                     CustomFilledButton(
                       title: "Continue",
                       onPressed: () {
-                        Navigator.pushNamed(context, "/sign-up-upload-profile");
+                        Navigator.pushNamed(context, "/sign-up-success");
                       },
-                    ),
+                    )
                   ],
                 )),
             const SizedBox(
-              height: 50,
+              height: 60,
             ),
             CustomTextButton(
-              title: "Sign In",
+              title: "Skip for Now",
               onPressed: () {
-                Navigator.pushNamed(context, '/sign-in');
+                Navigator.pushNamed(context, "/sign-up-success");
               },
-            ),
-            const SizedBox(
-              height: 50,
-            ),
+            )
           ]),
     );
   }

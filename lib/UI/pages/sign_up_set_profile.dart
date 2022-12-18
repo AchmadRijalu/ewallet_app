@@ -6,8 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../widgets/buttons.dart';
 import '../widgets/forms.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class SignUpUpSetProfilePage extends StatelessWidget {
+  const SignUpUpSetProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,47 +37,55 @@ class SignUpPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: whiteColor, borderRadius: BorderRadius.circular(20)),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    //NOTE : FULL NAME INPUT
-                    const CustomFormField(title: "Full Name"),
-
+                    // Container(
+                    //   width: 120,
+                    //   height: 120,
+                    //   decoration: BoxDecoration(
+                    //       color: lightBackgroundColor, shape: BoxShape.circle),
+                    //   child: Center(
+                    //       child: Image.asset(
+                    //     "assets/icon_upload.png",
+                    //     width: 32,
+                    //     height: 32,
+                    //   )),
+                    // ),
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/img_profile.png"))),
+                    ),
                     SizedBox(
                       height: 16,
                     ),
-                    //NOTE: EMAIL INPUT
-                    const CustomFormField(title: "Email Address"),
-
-                    SizedBox(
-                      height: 16,
+                    Text(
+                      "Shayna Hanna",
+                      style: blackTextStyle.copyWith(
+                          fontSize: 18, fontWeight: medium),
                     ),
-                    //NOTE: EMAIL INPUT
-                    CustomFormField(
-                      title: "Password",
-                      obscureText: true,
-                    ),
-
                     SizedBox(
                       height: 30,
                     ),
-
+                    CustomFormField(
+                      title: "Set PIN(6 digit number",
+                      obscureText: true,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     CustomFilledButton(
                       title: "Continue",
                       onPressed: () {
-                        Navigator.pushNamed(context, "/sign-up-upload-profile");
+                        Navigator.pushNamed(context, "/sign-up-set-ktp");
                       },
-                    ),
+                    )
                   ],
                 )),
-            const SizedBox(
-              height: 50,
-            ),
-            CustomTextButton(
-              title: "Sign In",
-              onPressed: () {
-                Navigator.pushNamed(context, '/sign-in');
-              },
-            ),
             const SizedBox(
               height: 50,
             ),

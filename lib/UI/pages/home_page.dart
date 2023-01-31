@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBackgroundColor,
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         notchMargin: 6,
@@ -72,7 +71,7 @@ class HomePage extends StatelessWidget {
       body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           children: [
-            buildProfile(),
+            buildProfile(context),
             buildWalletCard(),
             buildLevel(),
             buildServices(),
@@ -84,7 +83,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget buildProfile() {
+Widget buildProfile(BuildContext context) {
   return Container(
     margin: const EdgeInsets.only(top: 40),
     child: Row(
@@ -107,25 +106,30 @@ Widget buildProfile() {
             ),
           ],
         ),
-        Container(
-          width: 60,
-          height: 60,
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image:
-                  DecorationImage(image: AssetImage("assets/img_profile.png"))),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              width: 16,
-              height: 16,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: whiteColor),
-              child: Center(
-                child: Icon(
-                  Icons.check_circle,
-                  color: greenColor,
-                  size: 14,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/profile');
+          },
+          child: Container(
+            width: 60,
+            height: 60,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: AssetImage("assets/img_profile.png"))),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                width: 16,
+                height: 16,
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: whiteColor),
+                child: Center(
+                  child: Icon(
+                    Icons.check_circle,
+                    color: greenColor,
+                    size: 14,
+                  ),
                 ),
               ),
             ),

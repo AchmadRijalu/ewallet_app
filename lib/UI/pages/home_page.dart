@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
             buildProfile(context),
             buildWalletCard(),
             buildLevel(),
-            buildServices(),
+            buildServices(context),
             buildLatestTransaction(),
             buildSendAgain(),
             buildFriendlyTips()
@@ -221,7 +221,7 @@ Widget buildLevel() {
   );
 }
 
-Widget buildServices() {
+Widget buildServices(BuildContext context) {
   return Container(
     margin: const EdgeInsets.only(top: 30),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -238,7 +238,9 @@ Widget buildServices() {
           HomeServiceItem(
             iconUrl: "assets/icon_topup.png",
             title: "Top Up",
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/topup');
+            },
           ),
           HomeServiceItem(
             iconUrl: "assets/icon_send.png",
@@ -344,27 +346,29 @@ Widget buildFriendlyTips() {
       SizedBox(
         height: 14,
       ),
-      Wrap(
-        spacing: 17,
-        runSpacing: 18,
-        children: [
-          HomeTipsItem(
-              imageUrl: "assets/img_tips1.png",
-              title: "Best tips for using a credit card",
-              url: "https://pub.dev/packages/url_launcher"),
-          HomeTipsItem(
-              imageUrl: "assets/img_tips2.png",
-              title: "Spot the good pie of finance model",
-              url: "https://google.com"),
-          HomeTipsItem(
-              imageUrl: "assets/img_tips3.png",
-              title: "Great hack to get better advices",
-              url: ""),
-          HomeTipsItem(
-              imageUrl: "assets/img_tips4.png",
-              title: "Save more penny buy this instead",
-              url: "https://google.com")
-        ],
+      Center(
+        child: Wrap(
+          spacing: 17,
+          runSpacing: 18,
+          children: [
+            HomeTipsItem(
+                imageUrl: "assets/img_tips1.png",
+                title: "Best tips for using a credit card",
+                url: "https://pub.dev/packages/url_launcher"),
+            HomeTipsItem(
+                imageUrl: "assets/img_tips2.png",
+                title: "Spot the good pie of finance model",
+                url: "https://google.com"),
+            HomeTipsItem(
+                imageUrl: "assets/img_tips3.png",
+                title: "Great hack to get better advices",
+                url: ""),
+            HomeTipsItem(
+                imageUrl: "assets/img_tips4.png",
+                title: "Save more penny buy this instead",
+                url: "https://google.com")
+          ],
+        ),
       )
     ]),
   );

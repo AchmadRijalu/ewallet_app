@@ -1,3 +1,6 @@
+import 'package:ewallet_app/UI/pages/data_package_page.dart';
+import 'package:ewallet_app/UI/pages/data_provider_page.dart';
+import 'package:ewallet_app/UI/pages/data_success_page.dart';
 import 'package:ewallet_app/UI/pages/home_page.dart';
 import 'package:ewallet_app/UI/pages/onboarding_page.dart';
 import 'package:ewallet_app/UI/pages/pin_page.dart';
@@ -66,7 +69,10 @@ class MyApp extends StatelessWidget {
         '/topup-success': (context) => const TopupSuccessPage(),
         '/transfer': (context) => const TransferPage(),
         '/transfer-amount': (context) => const TransferAmountPage(),
-        '/transfer-success': (context) => const TransferSuccessPage()
+        '/transfer-success': (context) => const TransferSuccessPage(),
+        '/data-provider': (context) => const DataProviderPage(),
+        '/data-package': (context) => const DataPackagePage(),
+        '/data-success': (context) => const DataSuccessPage()
       },
     );
   }

@@ -2,6 +2,7 @@ import 'package:ewallet_app/UI/widgets/home_latest_transaction_item.dart';
 import 'package:ewallet_app/UI/widgets/home_services_item.dart';
 import 'package:ewallet_app/UI/widgets/home_tips_item.dart';
 import 'package:ewallet_app/UI/widgets/home_user_item.dart';
+import 'package:ewallet_app/UI/widgets/more_dialog.dart';
 import 'package:ewallet_app/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -257,7 +258,13 @@ Widget buildServices(BuildContext context) {
           HomeServiceItem(
             iconUrl: "assets/icon_more.png",
             title: "More",
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: ((context) {
+                    return const MoreDialog();
+                  }));
+            },
           )
         ],
       )

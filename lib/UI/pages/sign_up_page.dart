@@ -1,3 +1,4 @@
+import 'package:ewallet_app/shared/shared_methods.dart';
 import 'package:ewallet_app/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -6,8 +7,25 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../widgets/buttons.dart';
 import '../widgets/forms.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController nameController = TextEditingController(text: '');
+  final TextEditingController emailController = TextEditingController(text: '');
+  final TextEditingController passwordController =
+      TextEditingController(text: '');
+
+  bool validate() {
+    if (nameController.text.isEmpty || emailController.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +57,19 @@ class SignUpPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //NOTE : FULL NAME INPUT
-                    const CustomFormField(title: "Full Name"),
+                    CustomFormField(
+                      title: "Full Name",
+                      controller: nameController,
+                    ),
 
                     SizedBox(
                       height: 16,
                     ),
                     //NOTE: EMAIL INPUT
-                    const CustomFormField(title: "Email Address"),
+                    CustomFormField(
+                      title: "Email Address",
+                      controller: emailController,
+                    ),
 
                     SizedBox(
                       height: 16,
@@ -54,6 +78,7 @@ class SignUpPage extends StatelessWidget {
                     CustomFormField(
                       title: "Password",
                       obscureText: true,
+                      controller: emailController,
                     ),
 
                     SizedBox(
@@ -63,7 +88,13 @@ class SignUpPage extends StatelessWidget {
                     CustomFilledButton(
                       title: "Continue",
                       onPressed: () {
-                        Navigator.pushNamed(context, "/sign-up-upload-profile");
+                        if (validate()) {
+                          Navigator.pushNamed(
+                              context, "/sign-up-upload-profile");
+                        } else {
+                          showCustomSnacKbar(
+                              context, "Semua field harus diisi!");
+                        }
                       },
                     ),
                   ],
@@ -78,7 +109,7 @@ class SignUpPage extends StatelessWidget {
               },
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
           ]),
     );

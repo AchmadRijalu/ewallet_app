@@ -3,6 +3,7 @@ import 'package:ewallet_app/UI/widgets/home_services_item.dart';
 import 'package:ewallet_app/UI/widgets/home_tips_item.dart';
 import 'package:ewallet_app/UI/widgets/home_user_item.dart';
 import 'package:ewallet_app/UI/widgets/more_dialog.dart';
+import 'package:ewallet_app/shared/shared_methods.dart';
 import 'package:ewallet_app/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -175,7 +176,7 @@ Widget buildWalletCard() {
         style: whiteTextStyle,
       ),
       Text(
-        "RP.12.500",
+        formatCurrency(52500),
         style: whiteTextStyle.copyWith(fontSize: 24, fontWeight: semiBold),
       )
     ]),
@@ -201,7 +202,7 @@ Widget buildLevel() {
             style: greenTextStyle.copyWith(fontWeight: semiBold),
           ),
           Text(
-            " of Rp 20.000",
+            " of ${formatCurrency(20000)} ",
             style: blackTextStyle.copyWith(fontWeight: semiBold),
           )
         ],
@@ -290,27 +291,27 @@ Widget buildLatestTransaction() {
               iconUrl: "assets/icon_transaction_category1.png",
               title: "Top Up",
               time: "Yesterday",
-              value: "+ 450.000"),
+              value: "+ ${formatCurrency(450000, symbol: '')}"),
           HomeLatestTransactionItem(
               iconUrl: "assets/icon_transaction_category2.png",
               title: "Cashback",
               time: "Sep 11",
-              value: "+ 22.000"),
+              value: "+ ${formatCurrency(22000, symbol: '')}"),
           HomeLatestTransactionItem(
               iconUrl: "assets/icon_transaction_category3.png",
               title: "Withdraw",
               time: "Sep 2",
-              value: "- 5000"),
+              value: "- ${formatCurrency(5000, symbol: '')}"),
           HomeLatestTransactionItem(
               iconUrl: "assets/icon_transaction_category4.png",
               title: "Transfer",
               time: "Aug 27",
-              value: "- 123.500"),
+              value: "- ${formatCurrency(123500, symbol: '')}"),
           HomeLatestTransactionItem(
               iconUrl: "assets/icon_transaction_category5.png",
               title: "Electric",
               time: "Feb 18",
-              value: "- 12.300.00"),
+              value: "- ${formatCurrency(1230000, symbol: '')}"),
         ]),
       )
     ]),

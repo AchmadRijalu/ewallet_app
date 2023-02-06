@@ -1,3 +1,4 @@
+import 'package:ewallet_app/shared/shared_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -36,7 +37,7 @@ class PackageItem extends StatelessWidget {
           height: 6,
         ),
         Text(
-          "Rp. ${price}",
+          "${formatCurrency(price)}",
           style: greyTextStyle.copyWith(fontSize: 12),
         )
       ]),

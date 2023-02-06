@@ -1,4 +1,5 @@
 import 'package:ewallet_app/UI/widgets/buttons.dart';
+import 'package:ewallet_app/shared/shared_methods.dart';
 import 'package:ewallet_app/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -20,10 +21,15 @@ class _PinPageState extends State<PinPage> {
         pinController.text = pinController.text + number;
       });
     }
-// pinController.text.length == 6 &&
-    if (pinController.text == "123123") {
-      Navigator.pop(context, true);
+
+    if (pinController.text.length == 6) {
+      if (pinController.text == "123123") {
+        Navigator.pop(context, true);
+      } else {
+        showCustomSnacKbar(context, "Your PIN is not valid. Please try again.");
+      }
     }
+// pinController.text.length == 6 &&
   }
 
   deletePin() {

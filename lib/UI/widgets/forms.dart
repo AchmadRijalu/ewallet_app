@@ -10,11 +10,14 @@ class CustomFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool isShowTitle;
 
+  final TextInputType? keyBoardType;
+
   const CustomFormField(
       {super.key,
       required this.title,
       this.obscureText = false,
       this.controller,
+      this.keyBoardType,
       this.isShowTitle = true});
 
   @override
@@ -30,6 +33,7 @@ class CustomFormField extends StatelessWidget {
           height: 8,
         ),
       TextFormField(
+        keyboardType: keyBoardType,
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(

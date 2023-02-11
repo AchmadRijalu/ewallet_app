@@ -18,7 +18,7 @@ import 'package:ewallet_app/UI/pages/topup_page.dart';
 import 'package:ewallet_app/UI/pages/topup_success_page.dart';
 import 'package:ewallet_app/UI/pages/transfer_amount_page.dart';
 import 'package:ewallet_app/UI/pages/transfer_success_page.dart';
-import 'package:ewallet_app/UI/pages/transter_page.dart';
+import 'package:ewallet_app/UI/pages/transfer_page.dart';
 import 'package:ewallet_app/blocs/bloc/auth_bloc.dart';
 import 'package:ewallet_app/models/signup_form_model.dart';
 import 'package:ewallet_app/shared/theme.dart';
@@ -38,7 +38,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthBloc())],
+      providers: [
+        BlocProvider(create: (context) => AuthBloc()..add(AuthGetCurrentUser()))
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

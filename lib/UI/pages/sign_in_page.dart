@@ -1,88 +1,156 @@
 import 'package:ewallet_app/UI/widgets/buttons.dart';
 import 'package:ewallet_app/UI/widgets/forms.dart';
+import 'package:ewallet_app/blocs/bloc/auth_bloc.dart';
+import 'package:ewallet_app/models/signin_form_model.dart';
+import 'package:ewallet_app/shared/shared_methods.dart';
 import 'package:ewallet_app/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  @override
+  final TextEditingController emailController = TextEditingController(text: '');
+  final TextEditingController passwordController =
+      TextEditingController(text: '');
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.emailController;
+    this.passwordController;
+  }
+
+  bool Validate() {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightBackgroundColor,
-      body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          children: [
-            Container(
-              width: 155,
-              height: 50,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/img_logo_light.png"))),
-              margin: EdgeInsets.only(top: 100, bottom: 100),
-            ),
-            Text(
-              "Sign in\nGrow your Finance",
-              style:
-                  blackTextStyle.copyWith(fontWeight: semiBold, fontSize: 20),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-                padding: const EdgeInsets.all(22),
-                decoration: BoxDecoration(
-                    color: whiteColor, borderRadius: BorderRadius.circular(20)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //NOTE: EMAIL INPUT
-                    const CustomFormField(title: "Email Address"),
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          // TODO: implement listener
 
-                    SizedBox(
-                      height: 16,
-                    ),
-                    //NOTE: EMAIL INPUT
-                    CustomFormField(
-                      title: "Password",
-                      obscureText: true,
-                    ),
+          if (state is AuthFailed) {
+            showCustomSnacKbar(context, state.e);
+          }
 
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Forgot Password",
-                        style: blueTextStyle,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
+          if (state is AuthSuccess) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/home', (route) => false);
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-                    CustomFilledButton(
-                      title: "Sign In",
-                      onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, '/home', (route) => false);
-                      },
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    CustomTextButton(
-                      title: "Create a New Account",
-                      onPressed: (() {
-                        Navigator.pushNamed(context, "/sign-up");
-                      }),
-                    )
-                  ],
-                ))
-          ]),
+          return ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              children: [
+                Container(
+                  width: 155,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/img_logo_light.png"))),
+                  margin: EdgeInsets.only(top: 100, bottom: 100),
+                ),
+                Text(
+                  "Sign in\nGrow your Finance",
+                  style: blackTextStyle.copyWith(
+                      fontWeight: semiBold, fontSize: 20),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                        color: whiteColor,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //NOTE: EMAIL INPUT
+                        CustomFormField(
+                          title: "Email Address",
+                          controller: emailController,
+                        ),
+
+                        SizedBox(
+                          height: 16,
+                        ),
+                        //NOTE: EMAIL INPUT
+                        CustomFormField(
+                          title: "Password",
+                          obscureText: true,
+                          controller: passwordController,
+                        ),
+
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Forgot Password",
+                            style: blueTextStyle,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+
+                        CustomFilledButton(
+                          title: "Sign In",
+                          onPressed: () {
+                            if (Validate()) {
+                              context.read<AuthBloc>().add(AuthLogin(
+                                  SigninFormModel(
+                                      email: emailController.text,
+                                      password: passwordController.text)));
+                            } else {
+                              showCustomSnacKbar(
+                                  context, "Semua field harus terisi");
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        CustomTextButton(
+                          title: "Create a New Account",
+                          onPressed: (() {
+                            Navigator.pushNamed(context, "/sign-up");
+                          }),
+                        )
+                      ],
+                    ))
+              ]);
+        },
+      ),
     );
   }
 }

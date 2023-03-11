@@ -1,9 +1,11 @@
 import 'package:ewallet_app/UI/widgets/buttons.dart';
+import 'package:ewallet_app/blocs/bloc/auth_bloc.dart';
 import 'package:ewallet_app/shared/shared_methods.dart';
 import 'package:ewallet_app/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PinPage extends StatefulWidget {
   const PinPage({super.key});
@@ -14,6 +16,8 @@ class PinPage extends StatefulWidget {
 
 class _PinPageState extends State<PinPage> {
   final TextEditingController pinController = TextEditingController();
+  String pin = '';
+  bool isError = false;
 
   void addPin(String number) {
     if (pinController.text.length < 6) {
@@ -23,9 +27,12 @@ class _PinPageState extends State<PinPage> {
     }
 
     if (pinController.text.length == 6) {
-      if (pinController.text == "123123") {
+      if (pinController.text == pin) {
         Navigator.pop(context, true);
       } else {
+        setState(() {
+          isError = true;
+        });
         showCustomSnacKbar(context, "Your PIN is not valid. Please try again.");
       }
     }
@@ -35,9 +42,20 @@ class _PinPageState extends State<PinPage> {
   deletePin() {
     if (pinController.text.isNotEmpty) {
       setState(() {
+        isError = false;
         pinController.text =
             pinController.text.substring(0, pinController.text.length - 1);
       });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final authState = context.read<AuthBloc>().state;
+
+    if (authState is AuthSuccess) {
+      pin = authState.user.pin!;
     }
   }
 
@@ -68,7 +86,10 @@ class _PinPageState extends State<PinPage> {
                 obscuringCharacter: "*",
                 obscureText: true,
                 style: whiteTextStyle.copyWith(
-                    fontSize: 36, fontWeight: medium, letterSpacing: 16),
+                    fontSize: 36,
+                    fontWeight: medium,
+                    letterSpacing: 16,
+                    color: isError ? redColor : whiteColor),
                 decoration: InputDecoration(
                     disabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: greyColor)),

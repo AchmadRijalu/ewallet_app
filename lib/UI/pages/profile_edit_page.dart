@@ -112,8 +112,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           onPressed: () {
                             context.read<AuthBloc>().add(AuthUpdateUser(
                                 UserEditFormModel(
-                                    username: userNameController.text,
                                     name: nameController.text,
+                                    username: userNameController.text,
                                     email: emailController.text,
                                     password: passwordController.text)));
                           },

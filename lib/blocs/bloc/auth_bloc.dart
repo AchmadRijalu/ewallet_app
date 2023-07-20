@@ -6,6 +6,7 @@ import 'package:ewallet_app/models/user_edit_form_model.dart';
 import 'package:ewallet_app/models/user_model.dart';
 import 'package:ewallet_app/services/auth_service.dart';
 import 'package:ewallet_app/services/user_service.dart';
+import 'package:ewallet_app/services/wallet_service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -72,8 +73,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 name: event.data!.name,
                 email: event.data!.email,
                 password: event.data!.password);
+
             emit(AuthLoading());
+
             await UserService().updateUser(event.data!);
+            emit(AuthSuccess(updatedUser));
+          }
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+      if (event is AuthUpdatePin) {
+        try {
+          if (state is AuthSuccess) {
+            final updatedUser =
+                (state as AuthSuccess).user.copyWith(pin: event.newPin);
+            emit(AuthLoading());
+
+            await WalletService().updatePin(event.oldPin!,event.newPin!);
 
             emit(AuthSuccess(updatedUser));
           }

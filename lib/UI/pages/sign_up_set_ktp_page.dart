@@ -138,6 +138,10 @@ class _SignUpSetKtpPageState extends State<SignUpSetKtpPage> {
                                               base64Encode(
                                                   File(selectedImage!.path)
                                                       .readAsBytesSync()))));
+
+                              print('data:image/png;base64,' +
+                                  base64Encode(File(selectedImage!.path)
+                                      .readAsBytesSync()));
                             } else {
                               showCustomSnacKbar(
                                   context, "Gambar Tidak Boleh Kosong");
